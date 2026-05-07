@@ -2,15 +2,23 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    @if ($errors->any())
+        <div class="mb-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700">
+            <p class="font-bold">Error</p>
+            <p>Please check the credentials and try again.</p>
+        </div>
+    @endif
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <!-- Mobile Address -->
+        <!-- Login (Email or Mobile) -->
         <div>
-            <x-input-label for="mobile" :value="__('Mobile Number')" />
-            <x-text-input id="mobile" class="block mt-1 w-full" type="text" name="mobile" :value="old('mobile')" required autofocus autocomplete="tel" />
-            <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
+            <x-input-label for="login" :value="__('Email or Mobile Number')" />
+            <x-text-input id="login" class="block mt-1 w-full" type="text" name="login" :value="old('login')" required autofocus />
+            <x-input-error :messages="$errors->get('login')" class="mt-2" />
         </div>
+
 
         <!-- Password -->
         <div class="mt-4">
